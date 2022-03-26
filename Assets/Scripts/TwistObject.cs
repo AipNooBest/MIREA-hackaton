@@ -6,6 +6,7 @@ public class TwistObject : MonoBehaviour
         
     
 {
+    public float timeToWin;
     Vector3 firstPoint;
     Vector3 secondPoint;
     float xAngel;
@@ -15,6 +16,7 @@ public class TwistObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        timeToWin = 2.5f;
         yAngel = transform.localRotation.eulerAngles.y;
     }
 
@@ -33,6 +35,20 @@ public class TwistObject : MonoBehaviour
                 yAngel = yAngelTemp + (secondPoint.x - firstPoint.x) * 180 / Screen.width;
                 transform.rotation = Quaternion.Euler(xAngel, yAngel, 0);
             }
+        }
+        if (timeToWin > 0)
+        {
+            if ((transform.rotation.x * 100 < 2.662f) & (transform.rotation.x * 100 > -1.083f) & (transform.rotation.y * 100 < 3.537f) & (transform.rotation.y * 100 > -0.625f))
+            {
+                timeToWin -= Time.deltaTime;
+            }
+            else
+            {
+                timeToWin = 2.5f;
+            }
+        }
+        else {
+            print("Win!");
         }
         
     }
