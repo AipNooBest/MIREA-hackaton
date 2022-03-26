@@ -1,32 +1,46 @@
-﻿public static class Switcher
-{
-    public static TileHandler selectedObject;
+﻿using System.Collections;
+using UnityEngine;
 
-    public static void SwitchObjects(TileHandler switchingObject)
+public class Switcher : MonoBehaviour
+{
+    private Tile selectedTile;
+
+    void SwitchTiles(Tile switchingTile)
     {
-        if (selectedObject == switchingObject) return;
-        selectedObject.SetDestination(switchingObject.transform.position);
-        selectedObject.Deselect();
-        switchingObject.SetDestination(selectedObject.transform.position);
-        switchingObject.Deselect();
-        DeselectObject();
+        if (selectedTile == switchingTile) return;
+        StartCoroutine(SwitchTilesCoroutine(switchingTile));
     }
     
-    public static void SelectObject(TileHandler obj)
+    public void SelectTile(Tile obj)
     {
-        if(selectedObject == null)
-        {
-            selectedObject = obj;
-        }
+        if(selectedTile == null)
+            selectedTile = obj;
         else
-        {
-            SwitchObjects(obj);
-            selectedObject = null;
-        }
+            SwitchTiles(obj);
     }
     
-    public static void DeselectObject()
+    public void DeselectTile()
     {
-        selectedObject = null;
+        selectedTile = null;
+    }
+    
+    private IEnumerator SwitchTilesCoroutine(Tile switchingTile)
+    {
+        Debug.Log("Switching tiles");
+        while (switchingTile.IsMoving())
+        {
+            yield return null;
+        }
+        selectedTile.SetDestination(switchingTile.transform.position);
+        switchingTile.SetDestination(selectedTile.transform.position);
+        while (selectedTile.IsMoving() && switchingTile.IsMoving())
+        {
+            yield return null;
+        }
+        selectedTile.Deselect();
+        switchingTile.Deselect();
+        DeselectTile();
+        Debug.Log("Switched tiles");
+        
     }
 }
