@@ -20,6 +20,18 @@ public class CameraMove : MonoBehaviour
         mainCamera = GameObject.Find("Main Camera");
     }
     public void changePos() {
+        if (newPos.Equals(new Vector3(0, 0, 0)))
+        {
+            if (!(Scene_Manager.GetFirstRiddleSolved() && Scene_Manager.GetSecondRiddleSolved()))
+            {
+                // Проигрывание звуков
+                return;
+            }
+            else
+            {
+                
+            }
+        }
         mainCamera.transform.position = newPos;
         mainCamera.transform.rotation = Quaternion.Euler(xAng, yAng, zAng);
 
