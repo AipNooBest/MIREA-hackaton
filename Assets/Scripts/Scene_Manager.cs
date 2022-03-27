@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Scene_Manager : MonoBehaviour
 {
-    private static bool firstRiddleSolved = false;
-    private static bool secondRiddleSolved = false;
+    private static bool firstRiddleSolved = true;
+    private static bool secondRiddleSolved = true;
     
     public static void changeScene(int i) {
         if (i == 1 && firstRiddleSolved)
@@ -16,6 +16,15 @@ public class Scene_Manager : MonoBehaviour
         if (i == 2 && secondRiddleSolved)
         {
             return;
+        }
+
+        if (i == 3)
+        {
+            if (!(firstRiddleSolved && secondRiddleSolved))
+            {
+                // Проигрывание звуков
+                return;
+            }
         }
         SceneManager.LoadScene(i);
     }

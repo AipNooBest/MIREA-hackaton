@@ -51,8 +51,8 @@ public class CameraWin : MonoBehaviour
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 131f, Time.deltaTime * 6);
             if (cam.fieldOfView == 131f) {
                 Scene_Manager.changeScene(0);
+                Scene_Manager.SetSecondRiddleSolved(true);
             }
-            
         }
     }
 
