@@ -5,10 +5,14 @@ using UnityEngine;
 public class CameraWin : MonoBehaviour
 {
     GameObject key;
+    private AudioSource winSound;
     private float timeToWin;
     private Camera cam;
+    private bool flagWin;
     void Start()
     {
+        flagWin = false;
+        winSound = GetComponent<AudioSource>();
         cam = GetComponent<Camera>();
         cam.fieldOfView = 60f;
         key = GameObject.Find("key");
@@ -31,9 +35,22 @@ public class CameraWin : MonoBehaviour
         }
         else
         {
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 131f, Time.deltaTime*6);
-
+            win();
         }
 
+
     }
+    void win() {
+        if (flagWin == false)
+        {
+            flagWin = true;
+            winSound.Play();
+        }
+        else { 
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 131f, Time.deltaTime * 6);
+            
+        }
+    }
+
+
 }
