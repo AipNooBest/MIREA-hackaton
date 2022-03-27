@@ -70,7 +70,7 @@ public class Switcher : MonoBehaviour
         yield return new WaitForSeconds(2);
         var key = GameObject.Find("Key");
         Destroy(key);
-        Scene_Manager.changeScene(0);
         Scene_Manager.SetFirstRiddleSolved(true);
+        Scene_Manager.changeScene(0);
     }
 }

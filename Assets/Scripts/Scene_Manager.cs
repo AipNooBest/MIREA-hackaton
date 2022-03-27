@@ -9,6 +9,14 @@ public class Scene_Manager : MonoBehaviour
     private static bool secondRiddleSolved = false;
     
     public static void changeScene(int i) {
+        if (i == 1 && firstRiddleSolved)
+        {
+            return;
+        }
+        if (i == 2 && secondRiddleSolved)
+        {
+            return;
+        }
         SceneManager.LoadScene(i);
     }
 
