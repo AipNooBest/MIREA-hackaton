@@ -49,6 +49,9 @@ public class CameraWin : MonoBehaviour
         }
         else { 
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 131f, Time.deltaTime * 6);
+            if (cam.fieldOfView == 131f) {
+                Scene_Manager.changeScene(0);
+            }
             
         }
     }
