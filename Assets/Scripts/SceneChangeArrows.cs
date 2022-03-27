@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class SceneChangeArrows : MonoBehaviour, IPointerClickHandler
+public class SceneChangeArrows : MonoBehaviour
 {
     public int numberScene;
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnMouseUpAsButton()
     {
         Scene_Manager.changeScene(numberScene);
     }
