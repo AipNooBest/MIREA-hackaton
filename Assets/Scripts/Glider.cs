@@ -32,9 +32,6 @@ public class Glider : MonoBehaviour
         moving = true;
         destination = value;
     }
-    
-    public bool IsMoving()
-    {
-        return moving;
-    }
+
+    public bool IsMoving() => moving;
 }

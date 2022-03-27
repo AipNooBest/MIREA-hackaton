@@ -41,17 +41,12 @@ public class Tile : MonoBehaviour
     public void OnMouseUpAsButton()
     {
         Debug.Log("Clicked " + gameObject.name);
-        if(selected)    Deselect();
+        if (switchHandler.IsBusy()) return;
+        if (selected)    Deselect();
         else            Select();
     }
 
-    public bool IsSet()
-    {
-        return currentPosition == correctPosition;
-    }
-    
-    public Glider GetGlider()
-    {
-        return glider;
-    }
+    public bool IsSet() => currentPosition == correctPosition;
+
+    public Glider GetGlider() => glider;
 }
