@@ -5,14 +5,14 @@ using UnityEngine;
 public class CameraWin : MonoBehaviour
 {
     GameObject key;
-    private AudioSource winSound;
+    [SerializeField] private AudioSource winSound;
+    [SerializeField] private AudioSource backGroundMusic;
     private float timeToWin;
     private Camera cam;
     private bool flagWin;
     void Start()
     {
         flagWin = false;
-        winSound = GetComponent<AudioSource>();
         cam = GetComponent<Camera>();
         cam.fieldOfView = 60f;
         key = GameObject.Find("key");
@@ -43,6 +43,7 @@ public class CameraWin : MonoBehaviour
     void win() {
         if (flagWin == false)
         {
+            backGroundMusic.Stop();
             flagWin = true;
             winSound.Play();
         }
