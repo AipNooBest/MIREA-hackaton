@@ -24,23 +24,43 @@ public class Switcher : MonoBehaviour
         selectedTile = null;
     }
     
+    private bool AllTilesSet()
+    {
+        foreach (var tile in FindObjectsOfType<Tile>())
+        {
+            Debug.Log(tile.name + " " + tile.IsSet());
+            if (tile.IsSet() == false)
+                return false;
+        }
+        return true;
+    }
+    
     private IEnumerator SwitchTilesCoroutine(Tile switchingTile)
     {
         Debug.Log("Switching tiles");
-        while (switchingTile.IsMoving())
+        while (switchingTile.GetGlider().IsMoving())
         {
             yield return null;
         }
-        selectedTile.SetDestination(switchingTile.transform.position);
-        switchingTile.SetDestination(selectedTile.transform.position);
-        while (selectedTile.IsMoving() && switchingTile.IsMoving())
+        selectedTile.Move(switchingTile.transform.position);
+        switchingTile.Move(selectedTile.transform.position);
+        while (selectedTile.GetGlider().IsMoving() && switchingTile.GetGlider().IsMoving())
         {
             yield return null;
         }
+        int temp = selectedTile.currentPosition;
+        selectedTile.currentPosition = switchingTile.currentPosition;
+        switchingTile.currentPosition = temp;
         selectedTile.Deselect();
         switchingTile.Deselect();
         DeselectTile();
         Debug.Log("Switched tiles");
-        
+        if (AllTilesSet())
+        {
+            Debug.Log("All tiles set");
+            var cylinder = GameObject.Find("Cylinder");
+            Vector3 tempPos = cylinder.transform.position;
+            cylinder.GetComponent<Glider>().SetDestination(new Vector3(tempPos.x, tempPos.y + 3.5f, tempPos.z));
+        }
     }
 }
